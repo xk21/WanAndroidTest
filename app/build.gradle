@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 dependencies {
@@ -26,4 +30,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+//    implementation rootProject.ext.commonLibs  //这个可以依赖所有公共库
+    implementation rootProject.ext.commonDeps["eventbus"]
+    // 网络请求库
+    implementation rootProject.ext.networkLibs
+    // RxJava2
+    implementation rootProject.ext.rxJavaLibs
+    //leakCanary
+    debugImplementation rootProject.ext.testDeps["leakcanary-debug"]
+    releaseImplementation rootProject.ext.testDeps["leakcanary-release"]
 }

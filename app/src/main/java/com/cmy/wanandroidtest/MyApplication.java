@@ -16,6 +16,7 @@ public class MyApplication extends Application {
     private boolean showForceLogoutDialog = false;
     private boolean updateLocalData = false;
     private String message = "";
+    private static Context mContext;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -27,5 +28,11 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         registerActivityLifecycleCallbacks(new ActivityCallbacks());
+        instances = this;
+
+    }
+
+    public static Context getInstance() {
+        return instances;
     }
 }

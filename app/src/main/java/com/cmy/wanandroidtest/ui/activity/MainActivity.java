@@ -3,6 +3,8 @@ package com.cmy.wanandroidtest.ui.activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,30 +15,44 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.cmy.wanandroidtest.R;
+import com.cmy.wanandroidtest.base.BaseActivity;
+import com.cmy.wanandroidtest.base.BasePresenter;
+import com.cmy.wanandroidtest.ui.fragment.HomePageFragment;
 
-public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+
+public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar mToolbar;
     private BottomNavigationView mBottomNavigationView;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
-    private final int FRAGMENT_HOME = 1;
-    private final int FRAGMENT_KNOWLEDGE = 2;
-    private final int FRAGMENT_NAVIGATION = 3;
-    private final int FRAGMENT_PROJECT = 4;
+    private final int FRAGMENT_HOME = 0;
+    private final int FRAGMENT_KNOWLEDGE = 1;
+    private final int FRAGMENT_NAVIGATION = 2;
+    private final int FRAGMENT_PROJECT = 3;
+    private ArrayList<Fragment> fragments;
+    private int lastIndex;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initView();
         showFragment(FRAGMENT_HOME);
     }
 
-    private void showFragment(int index) {
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initData() {
 
     }
 
-    private void initView() {
+
+    @Override
+    protected void initView() {
         mToolbar = findViewById(R.id.toolbar);
         mBottomNavigationView = findViewById(R.id.bottom_navigation);
         mNavigationView = findViewById(R.id.nav_view);
@@ -56,6 +72,46 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             }
         });
         mBottomNavigationView.setOnNavigationItemSelectedListener(this);
+        initFragment();
+        selectFragment(FRAGMENT_HOME);
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
+    private void showFragment(int index) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+    }
+
+    private void initFragment() {
+        fragments = new ArrayList<>();
+        fragments.add(HomePageFragment.getInstance());
+//        fragments.add(KnowledgeFragment.getInstance());
+//        fragments.add(ProjectFragment.getInstance());
+//        fragments.add(GankFragment.getInstance());
+//        fragments.add(PersonalFragment.getInstance());
+    }
+
+    /**
+     * 切换Fragment
+     *
+     * @param position
+     */
+    private void selectFragment(int position) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment currentFragment = fragments.get(position);
+        Fragment lastFragment = fragments.get(lastIndex);
+        lastIndex = position;
+        ft.hide(lastFragment);
+        if (!currentFragment.isAdded()) {
+            getSupportFragmentManager().beginTransaction().remove(currentFragment).commit();
+            ft.add(R.id.container, currentFragment);
+        }
+        ft.show(currentFragment);
+        ft.commitAllowingStateLoss();
+//        presenter.setCurrentPage(position);
     }
 
     @Override
@@ -74,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.action_home:
-
+                showFragment(FRAGMENT_HOME);
                 return true;
             case R.id.action_knowledge_system:
 

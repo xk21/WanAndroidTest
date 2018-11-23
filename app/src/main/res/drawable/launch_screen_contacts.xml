@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+    <item android:drawable="@android:color/holo_blue_bright" />
+    <item
+        android:id="@+id/launchscreens_product_logo"
+        android:bottom="@dimen/dp_24">
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/icon_play" />
+    </item>
+</layer-list>
