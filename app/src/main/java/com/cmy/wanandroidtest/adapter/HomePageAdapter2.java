@@ -56,10 +56,15 @@ public class HomePageAdapter2 extends BaseRecyclerAdapter<HomePageArticleBean.Da
 //            holder.setTextColor(R.id.tv_tag,mContext.getResources().getColor(R.color.red));
 //            holder.setImage(R.id.tv_tag,R.drawable.drawable_shape_red);
         }
+        holder.setImage(R.id.image_collect, article.isCollect() ? R.drawable.icon_collect : R.drawable.icon_no_collect);
 //        holder.addOnClickListener(R.id.tv_type);
 //        holder.addOnClickListener(R.id.image_collect);
 //        holder.setClickListener(R.id.tv_tag);
+        holder.itemView.setOnClickListener(v->
+                onItemClickListner.onItemClickListner(holder.getView(R.id.item_card_homepage),position));
         holder.getView(R.id.tv_tag).setOnClickListener(v->
                 onItemClickListner.onItemClickListner(holder.getView(R.id.tv_tag),position));
+        holder.getView(R.id.image_collect).setOnClickListener(v->
+                onItemClickListner.onItemClickListner(holder.getView(R.id.image_collect),position));
     }
 }

@@ -50,6 +50,17 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mPresenter !=null){
+            mPresenter.detach();
+            mPresenter.onDestroy();
+            mPresenter = null;
+            System.gc();
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onNetworkEvent(NetworkEvent event) {
         LogUtil.getInstance().d("szjjy hhh=" + event.getIsconnected());

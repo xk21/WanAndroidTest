@@ -2,11 +2,6 @@ package com.cmy.wanandroidtest.utils;
 
 import android.util.Log;
 
-/**
- * Author ： BlackHao
- * Time : 2017/8/1 14:05
- * Description : Log 工具类 ,支持跳转对应的代码位置
- */
 public class LogUtil {
     //单例
     private static LogUtil logUtil;

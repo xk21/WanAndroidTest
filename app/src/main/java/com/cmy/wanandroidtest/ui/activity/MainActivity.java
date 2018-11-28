@@ -17,7 +17,9 @@ import android.view.View;
 import com.cmy.wanandroidtest.R;
 import com.cmy.wanandroidtest.base.BaseActivity;
 import com.cmy.wanandroidtest.base.BasePresenter;
+import com.cmy.wanandroidtest.constant.Constant;
 import com.cmy.wanandroidtest.ui.fragment.HomePageFragment;
+import com.cmy.wanandroidtest.utils.SharedPreferenceUtil;
 
 import java.util.ArrayList;
 
@@ -143,5 +145,11 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
                 return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferenceUtil.put(this, Constant.ISLOGIN, Constant.FALSE);
     }
 }

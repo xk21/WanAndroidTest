@@ -15,6 +15,7 @@
     <!-- SD 卡读写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -23,7 +24,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,16 +38,22 @@
             android:name=".ui.activity.Main3Activity"
             android:label="@string/title_activity_main3"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter >
-                <action android:name="com.intent.action.UU_AA"/>
+            <intent-filter>
+                <action android:name="com.intent.action.UU_AA" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".receiver.NetworkBroadcastReceiver">
+        <receiver android:name=".receiver.NetworkBroadcastReceiver" />
 
-        </receiver>
-
+        <activity
+            android:name=".ui.activity.ArticleDetailsActivity"
+            android:hardwareAccelerated="false"
+            android:label="@string/title_activity_article_details"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.activity.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
